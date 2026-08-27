@@ -2,10 +2,12 @@ from dotenv import load_dotenv
 load_dotenv()
 
 import os
+import streamlit as st
 import google.generativeai as genai
 import json
 
-genai.configure(api_key=os.environ["GEMINI_API_KEY"])
+api_key = os.environ.get("GEMINI_API_KEY") or st.secrets.get("GEMINI_API_KEY")
+genai.configure(api_key=api_key)
 model = genai.GenerativeModel("gemini-3.6-flash")
 
 def analyze_abstract(abstract_text):
